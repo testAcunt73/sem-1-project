@@ -7,11 +7,12 @@ import json
 import requests
 
 def main(query):
+	'''Main function'''
 	#get the data
 	headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko)'
                              'Chrome/53.0.2785.116 Safari/537.36'}
 	raw_data = requests.get("https://www.musixmatch.com/search/%s/lyrics" % query, headers=headers).text.encode('utf-8')
-	#raw_data is now a HTML dump, parse it to make it perfect json
+	#raw_data is now a HTML dump, parse it to make JSON objects
 	raw_data = raw_data[raw_data.find('{', raw_data.find('mxmProps')) : raw_data.find('</script>', raw_data.find('mxmProps'))]
 	data = json.loads(raw_data) # Data ready to be queried
 	
